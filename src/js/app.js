@@ -215,7 +215,7 @@ App = {
     var age = $('#age').val();
     var party = $('#party').val();
     var qualification = $('#qualification').val();
-    
+
     App.contracts.Contest.deployed().then(function(instance){
       return instance.addContestant(name,party,age,qualification);
     }).then(function(result){

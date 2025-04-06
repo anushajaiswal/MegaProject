@@ -10,17 +10,16 @@ router.get('/adlogin', function(req, res, next) {
   res.render('admin_login.ejs');
 });
 
-
 router.post('/adlogin', function(req, res){
-    var emailAddress = req.body.email_address;
+    var email = req.body.email_address;
     var password = req.body.password;
 
-    var sql='SELECT * FROM registration WHERE email_address =? AND password =?';
-    db.query(sql, [emailAddress, password], function (err, data, fields) {
+    var sql='SELECT * FROM registration WHERE email =? AND password =?';
+    db.query(sql, [email, password], function (err, data, fields) {
         if(err) throw err
         if(data.length>0){
             req.session.loggedinUser= true;
-            req.session.emailAddress= emailAddress;
+            req.session.email= email;
             res.redirect('/addCandidate');
         }else{
             res.render('admin_login.ejs',{alertMsg:"Your Email Address or password is wrong"});
