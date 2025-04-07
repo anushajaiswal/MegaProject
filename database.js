@@ -1,12 +1,12 @@
-var mysql = require('mysql');
+var mysql = require("mysql");
 var conn = mysql.createConnection({
-  host: 'localhost', // assign your host name
-  user: 'root',      //  assign your database username
-  password: 'Oracle@234',      // assign your database password
-  database: 'aadhar' // assign database Name
-}); 
-conn.connect(function(err) {
+  host: "localhost", // assign your host name
+  user: "root", //  assign your database username
+  password: "MySQL@000", // assign your database password
+  database: "aadhar", // assign database Name
+});
+conn.connect(function (err) {
   if (err) throw err;
-  console.log('Database is connected successfully !');
+  console.log("Database is connected successfully !");
 });
 module.exports = conn;

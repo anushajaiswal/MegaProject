@@ -1,5 +1,5 @@
-var Contest = artifacts.require("./Contest.sol");
+var Contest = artifacts.require("../contracts//Contest.sol");
 
-module.exports = function(deployer) {
-  deployer.deploy(Contest)
+module.exports = function (deployer) {
+  deployer.deploy(Contest);
 };
