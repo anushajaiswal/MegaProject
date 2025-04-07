@@ -307,7 +307,7 @@ App = {
     // console.log(phaseEnum);
     App.contracts.Contest.deployed()
       .then(function (instance) {
-        return instance.changeState(phaseEnum);
+        return instance.changeState(phaseEnum, { from: App.account });
       })
       .then(function (result) {
         $("#content").hide();
