@@ -64,7 +64,6 @@ App = {
         $("#accountAddress").html("Your account: " + account);
       }
     });
-
     // ------------- fetching candidates to front end from blockchain code-------------
     App.contracts.Contest.deployed()
       .then(function (instance) {
@@ -259,14 +258,14 @@ App = {
 
   // ------------- voting code -------------
   castVote: function (id) {
+    console.log({ id });
     var contestantId = id;
     App.contracts.Contest.deployed()
       .then(function (instance) {
         return instance.vote(contestantId, { from: App.account });
       })
       .then(function (result) {
-        // $("#test").hide();
-        // $("#after").show();
+        // handle success
       })
       .catch(function (err) {
         console.error(err);
@@ -320,19 +319,29 @@ App = {
 
   // ------------- registering voter code -------------
   registerVoter: function () {
-    var add = $("#accadd").val();
+    if (event) event.preventDefault();
+
+    var add = $("#accadd").val().trim();
+
+    if (!web3.isAddress(add)) {
+      alert("Invalid address");
+      return;
+    }
+    console.log("Network ID:", web3.version.network);
+
     App.contracts.Contest.deployed()
-      .then(function (instance) {
-        return instance.voterRegisteration(add);
-      })
-      .then(function (result) {
-        $("#content").hide();
-        $("#loader").show();
-      })
-      .catch(function (err) {
-        console.error(err);
-      });
-  },
+    .then(function (instance) {
+      return instance.voterRegisteration(add, { from: App.account });
+    })
+    .then(function () {
+      $("#content").hide();
+      $("#loader").show();
+    })
+    .catch(function (err) {
+      console.error("Registration failed:", err.message || err);
+    });
+  }
+
 };
 
 $(function () {
